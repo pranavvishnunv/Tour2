@@ -9,7 +9,6 @@ import '../../providers/auth_provider.dart';
 import '../../providers/location_provider.dart';
 import '../../models/location_model.dart';
 import '../../constants/districts.dart';
-import '../../utils/theme.dart';
 import '../../widgets/loading_overlay.dart';
 
 class AddLocationScreen extends StatefulWidget {
