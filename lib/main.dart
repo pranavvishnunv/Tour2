@@ -29,7 +29,7 @@ class KeralaToursApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => TourProvider()),
       ],
       child: MaterialApp.router(
-        title: 'Kerala Tourism',
+        title: 'Tour Planner',
         debugShowCheckedModeBanner: false,
         theme: AppTheme.lightTheme,
         routerConfig: AppRouter.router,

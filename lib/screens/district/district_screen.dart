@@ -6,7 +6,6 @@ import '../../providers/tour_provider.dart';
 import '../../providers/location_provider.dart';
 import '../../constants/districts.dart';
 import '../../models/location_model.dart';
-import '../../utils/theme.dart';
 import '../../widgets/tour_plan_card.dart';
 import '../../widgets/location_card.dart';
 

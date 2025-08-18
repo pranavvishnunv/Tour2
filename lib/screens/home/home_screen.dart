@@ -81,7 +81,7 @@ class HomeScreen extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Welcome, ${user?.name ?? 'Explorer'}!',
+                        'Welcome ${user?.name ?? 'Explorer'}!',
                         style: Theme.of(context).textTheme.titleLarge!.copyWith(
                           color: Colors.white,
                         ),
@@ -102,14 +102,19 @@ class HomeScreen extends StatelessWidget {
                   style: Theme.of(context).textTheme.titleLarge,
                 ),
                 const SizedBox(height: 16),
-                GridView.builder(
+               GridView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: MediaQuery.of(context).size.width < 320
+                      ? 1: MediaQuery.of(context).size.width < 600
+                        ? 2 // 📱 Mobile
+                        : MediaQuery.of(context).size.width < 950
+                            ? 4 // 📱📱 Tablet / small web
+                            : 5,
                     crossAxisSpacing: 16,
                     mainAxisSpacing: 16,
-                    childAspectRatio: 0.8,
+                    childAspectRatio: 0.7,
                   ),
                   itemCount: KeralaDistricts.districts.length,
                   itemBuilder: (context, index) {
@@ -121,7 +126,7 @@ class HomeScreen extends StatelessWidget {
                       },
                     );
                   },
-                ),
+                )
               ],
             ),
           );
