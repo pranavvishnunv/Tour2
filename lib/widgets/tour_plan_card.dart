@@ -9,10 +9,10 @@ class TourPlanCard extends StatelessWidget {
   final VoidCallback onTap;
 
   const TourPlanCard({
-    Key? key,
+    super.key,
     required this.tourPlan,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

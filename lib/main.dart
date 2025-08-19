@@ -18,7 +18,7 @@ void main() async {
 }
 
 class KeralaToursApp extends StatelessWidget {
-  const KeralaToursApp({Key? key}) : super(key: key);
+  const KeralaToursApp({super.key});
 
   @override
   Widget build(BuildContext context) {

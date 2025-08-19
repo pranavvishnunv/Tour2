@@ -16,11 +16,9 @@ class AppTheme {
       primary: primaryGreen,
       secondary: accentGold,
       surface: cardWhite,
-      background: backgroundLight,
       onPrimary: Colors.white,
       onSecondary: Colors.white,
       onSurface: textDark,
-      onBackground: textDark,
     ),
     textTheme: GoogleFonts.poppinsTextTheme().copyWith(
       headlineLarge: GoogleFonts.poppins(

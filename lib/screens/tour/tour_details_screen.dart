@@ -9,7 +9,7 @@ import '../../utils/theme.dart';
 class TourDetailsScreen extends StatelessWidget {
   final String tourId;
 
-  const TourDetailsScreen({Key? key, required this.tourId}) : super(key: key);
+  const TourDetailsScreen({super.key, required this.tourId});
 
   @override
   Widget build(BuildContext context) {

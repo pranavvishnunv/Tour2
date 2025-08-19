@@ -12,7 +12,7 @@ import '../../widgets/location_card.dart';
 class DistrictScreen extends StatefulWidget {
   final String districtId;
 
-  const DistrictScreen({Key? key, required this.districtId}) : super(key: key);
+  const DistrictScreen({super.key, required this.districtId});
 
   @override
   State<DistrictScreen> createState() => _DistrictScreenState();
@@ -66,9 +66,9 @@ class _DistrictScreenState extends State<DistrictScreen>
         controller: _tabController,
         children: [
           _TourPlansTab(),
-          _LocationsTab(type: LocationType.tourist),
-          _LocationsTab(type: LocationType.restaurant),
-          _LocationsTab(type: LocationType.teaSpot),
+          const _LocationsTab(type: LocationType.tourist),
+          const _LocationsTab(type: LocationType.restaurant),
+          const _LocationsTab(type: LocationType.teaSpot),
         ],
       ),
     );

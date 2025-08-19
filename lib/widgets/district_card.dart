@@ -8,10 +8,10 @@ class DistrictCard extends StatelessWidget {
   final VoidCallback onTap;
 
   const DistrictCard({
-    Key? key,
+    super.key,
     required this.district,
     required this.onTap,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

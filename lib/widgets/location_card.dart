@@ -8,7 +8,7 @@ import '../utils/theme.dart';
 class LocationCard extends StatelessWidget {
   final LocationModel location;
 
-  const LocationCard({Key? key, required this.location}) : super(key: key);
+  const LocationCard({super.key, required this.location});
 
   @override
   Widget build(BuildContext context) {
@@ -21,8 +21,8 @@ class LocationCard extends StatelessWidget {
             Container(
               height: 200,
               width: double.infinity,
-              decoration: BoxDecoration(
-                borderRadius: const BorderRadius.vertical(
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.vertical(
                   top: Radius.circular(16),
                 ),
               ),

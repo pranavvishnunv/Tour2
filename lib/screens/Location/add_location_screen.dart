@@ -12,7 +12,7 @@ import '../../constants/districts.dart';
 import '../../widgets/loading_overlay.dart';
 
 class AddLocationScreen extends StatefulWidget {
-  const AddLocationScreen({Key? key}) : super(key: key);
+  const AddLocationScreen({super.key});
 
   @override
   State<AddLocationScreen> createState() => _AddLocationScreenState();
@@ -132,7 +132,7 @@ class _AddLocationScreenState extends State<AddLocationScreen> {
                             ),
                             const SizedBox(height: 16),
                             DropdownButtonFormField<String>(
-                              value: _selectedDistrict,
+                              initialValue: _selectedDistrict,
                               decoration: const InputDecoration(
                                 labelText: 'District',
                                 border: OutlineInputBorder(),
@@ -157,7 +157,7 @@ class _AddLocationScreenState extends State<AddLocationScreen> {
                             ),
                             const SizedBox(height: 16),
                             DropdownButtonFormField<LocationType>(
-                              value: _selectedType,
+                              initialValue: _selectedType,
                               decoration: const InputDecoration(
                                 labelText: 'Location Type',
                                 border: OutlineInputBorder(),
