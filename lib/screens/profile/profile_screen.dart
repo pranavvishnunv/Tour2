@@ -100,7 +100,7 @@ class ProfileScreen extends StatelessWidget {
                         title: const Text('Account Information'),
                         trailing: const Icon(Icons.arrow_forward_ios),
                         onTap: () {
-                          // TODO: Navigate to edit profile
+                          context.push('/edit-profile');
                         },
                       ),
                       const Divider(height: 1),
@@ -138,7 +138,7 @@ class ProfileScreen extends StatelessWidget {
                 Card(
                   child: ListTile(
                     leading: const Icon(Icons.info),
-                    title: const Text('About Kerala Tourism'),
+                    title: const Text('About Tour Partner'),
                     subtitle: const Text('Version 1.0.0'),
                     onTap: () {
                       _showAboutDialog(context);
@@ -180,7 +180,7 @@ class ProfileScreen extends StatelessWidget {
   void _showAboutDialog(BuildContext context) {
     showAboutDialog(
       context: context,
-      applicationName: 'Kerala Tourism',
+      applicationName: 'tour_partner',
       applicationVersion: '1.0.0',
       applicationIcon: const Icon(
         Icons.location_on,
@@ -189,7 +189,7 @@ class ProfileScreen extends StatelessWidget {
       ),
       children: [
         const Text(
-          'Kerala Tourism App helps you discover the beauty of God\'s Own Country. '
+          'Tour Partner App helps you discover the beauty of God\'s Own Country. '
           'Plan your trips, find tourist destinations, restaurants, and tea spots across all 14 districts of Kerala.',
         ),
       ],

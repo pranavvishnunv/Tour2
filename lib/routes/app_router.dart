@@ -8,6 +8,7 @@ import '../screens/district/district_screen.dart';
 import '../screens/tour/tour_details_screen.dart';
 import '../screens/location/add_location_screen.dart';
 import '../screens/profile/profile_screen.dart';
+import '../screens/profile/edit_profile_screen.dart';
 
 class AppRouter {
   static final GoRouter router = GoRouter(
@@ -58,6 +59,11 @@ class AppRouter {
         path: '/profile',
         name: 'profile',
         builder: (context, state) => const ProfileScreen(),
+      ),
+      GoRoute(
+        path: '/edit-profile',
+        name: 'edit-profile',
+        builder: (context, state) => const EditProfileScreen(),
       ),
     ],
   );

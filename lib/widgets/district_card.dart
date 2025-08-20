@@ -51,10 +51,14 @@ class DistrictCard extends StatelessWidget {
                           color: Colors.white,
                         ),
                       )
-                    : const Icon(
-                        Icons.landscape,
-                        size: 48,
-                        color: Colors.white,
+                    : Image.asset(
+                        district['image']!,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) => const Icon(
+                          Icons.landscape,
+                          size: 48,
+                          color: Colors.white,
+                        ),
                       ),
               ),
             ),

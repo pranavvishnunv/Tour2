@@ -10,6 +10,9 @@ import '../../providers/location_provider.dart';
 import '../../models/location_model.dart';
 import '../../constants/districts.dart';
 import '../../widgets/loading_overlay.dart';
+import 'package:latlong2/latlong.dart';
+import '../../widgets/location_picker.dart';
+import 'package:geolocator/geolocator.dart';
 
 class AddLocationScreen extends StatefulWidget {
   const AddLocationScreen({super.key});
@@ -40,13 +43,62 @@ class _AddLocationScreenState extends State<AddLocationScreen> {
     _contactController.dispose();
     super.dispose();
   }
+  // ignore: unused_element
+  Future<Position> _getCurrentLocation() async {
+    bool serviceEnabled;
+    LocationPermission permission;
 
+    // Check if location services are enabled
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    if (!serviceEnabled) {
+      throw Exception("Location services are disabled.");
+    }
+
+    // Check permission
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        throw Exception("Location permissions are denied");
+      }
+    }
+
+    if (permission == LocationPermission.deniedForever) {
+      throw Exception("Location permissions are permanently denied.");
+    }
+
+  // Fetch location
+  return await Geolocator.getCurrentPosition();
+}
   Future<void> _pickImages() async {
     final images = await _picker.pickMultiImage();
     setState(() {
       _selectedImages = images.map((image) => File(image.path)).toList();
     });
   }
+
+  Future<void> _openMapPicker() async {
+    final pickedLocation = await Navigator.of(context).push<LatLng>(
+      MaterialPageRoute(
+        builder: (context) => LocationPicker(
+          onLocationPicked: (LatLng pickedLocation) {
+            Navigator.of(context).pop(pickedLocation);
+          },
+          autoGoToCurrentLocation: true,
+        ),
+      ),
+    );
+
+    if (!mounted) return;
+
+    if (pickedLocation != null) {
+      setState(() {
+        _latitudeController.text = pickedLocation.latitude.toString();
+        _longitudeController.text = pickedLocation.longitude.toString();
+      });
+    }
+  }
+
 
   Future<void> _submitLocation() async {
     if (!_formKey.currentState!.validate()) return;
@@ -205,9 +257,10 @@ class _AddLocationScreenState extends State<AddLocationScreen> {
                               style: Theme.of(context).textTheme.titleMedium,
                             ),
                             const SizedBox(height: 8),
-                            Text(
-                              'You can get coordinates from Google Maps',
-                              style: Theme.of(context).textTheme.bodySmall,
+                            ElevatedButton.icon(
+                              onPressed: _openMapPicker,
+                              icon: const Icon(Icons.map),
+                              label: const Text("Pick from Map"),
                             ),
                             const SizedBox(height: 16),
                             Row(
@@ -220,15 +273,6 @@ class _AddLocationScreenState extends State<AddLocationScreen> {
                                       border: OutlineInputBorder(),
                                     ),
                                     keyboardType: TextInputType.number,
-                                    validator: (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return 'Required';
-                                      }
-                                      if (double.tryParse(value) == null) {
-                                        return 'Invalid';
-                                      }
-                                      return null;
-                                    },
                                   ),
                                 ),
                                 const SizedBox(width: 16),
@@ -240,15 +284,6 @@ class _AddLocationScreenState extends State<AddLocationScreen> {
                                       border: OutlineInputBorder(),
                                     ),
                                     keyboardType: TextInputType.number,
-                                    validator: (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return 'Required';
-                                      }
-                                      if (double.tryParse(value) == null) {
-                                        return 'Invalid';
-                                      }
-                                      return null;
-                                    },
                                   ),
                                 ),
                               ],

@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -19,6 +20,16 @@ class AuthProvider extends ChangeNotifier {
 
   AuthProvider() {
     _auth.authStateChanges().listen(_onAuthStateChanged);
+    _configureAuthPersistence();
+  }
+
+  void _configureAuthPersistence() async {
+    try {
+      // Set persistence to SESSION so auth state only persists for the current session
+      await _auth.setPersistence(Persistence.SESSION);
+    } catch (e) {
+      debugPrint('Error configuring auth persistence: $e');
+    }
   }
 
   void _onAuthStateChanged(User? user) async {
@@ -109,5 +120,37 @@ class AuthProvider extends ChangeNotifier {
 
   Future<void> signOut() async {
     await _auth.signOut();
+  }
+
+  Future<String?> updateUserProfile({
+    required String name,
+    String? phone,
+    File? profileImage,
+  }) async {
+    try {
+      if (_user == null) return 'User not authenticated';
+
+      final userRef = _firestore.collection('users').doc(_user!.uid);
+      
+      final updateData = {
+        'name': name,
+        'phone': phone,
+        'updatedAt': DateTime.now().millisecondsSinceEpoch,
+      };
+
+      await userRef.update(updateData);
+      
+      // Reload user model to reflect changes
+      await _loadUserModel();
+      
+      // Ensure listeners are notified
+      notifyListeners();
+      
+      return null; // Success
+    } on FirebaseException catch (e) {
+      return e.message ?? 'Failed to update profile';
+    } catch (e) {
+      return 'An unexpected error occurred';
+    }
   }
 }

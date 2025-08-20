@@ -14,7 +14,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Kerala Tourism'),
+        title: const Text('Tour Prtner'),
         actions: [
           PopupMenuButton<String>(
             onSelected: (value) {

@@ -95,4 +95,20 @@ class LocationProvider extends ChangeNotifier {
   List<LocationModel> getLocationsByType(LocationType type) {
     return _locations.where((location) => location.type == type).toList();
   }
+
+  Future<List<LocationModel>> getLocationsByIds(List<String> locationIds) async {
+    try {
+      final query = await _firestore
+          .collection('locations')
+          .where(FieldPath.documentId, whereIn: locationIds)
+          .get();
+
+      return query.docs
+          .map((doc) => LocationModel.fromMap(doc.data()))
+          .toList();
+    } catch (e) {
+      debugPrint('Error getting locations by IDs: $e');
+      return [];
+    }
+  }
 }
